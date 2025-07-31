@@ -1,66 +1,192 @@
 import { useState } from "react";
 
+const navLinks = [
+  { label: "Home", href: "#" },
+  { label: "Contact", href: "#" },
+  { label: "About", href: "#" },
+  { label: "Blog", href: "#" },
+  { label: "Shop", href: "#" },
+];
+
 function App() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+
+  // Function to toggle search input visibility
+  const toggleSearch = () => setSearchOpen(!searchOpen);
+  // Toggle function for mobile menu
+  const toggleMenu = () => setMenuOpen(!menuOpen);
   return (
     <>
-      <div className="min-h-screen bg-red-200 flex items-center justify-center">
-        <h1 className="text-4xl font-bold text-blue-600">
-          Tailwind is working ✅
-        </h1>
-      </div>
-      <div className="bg-gray-400 p-5 mx-auto flex justify-center items-center">
-        <button class="bg-blue-500 hover:bg-blue-700">Button A</button>
-        <button class="bg-cyan-500 hover:bg-cyan-700 mx-6">Button B</button>
-        <button class="bg-pink-500 hover:bg-pink-700 hover:border-transparent w-25 border-2 hover:text-white border-gray-500 rounded-full ">
-          Button C
-        </button>
-      </div>
-      <div class="text-blue-600">
-        <span data-active></span>
-        <span className="block">This text will be blue</span>
-        <span className="block text-gray-400">This text will be blue</span>
-      </div>
+      <nav className="relative bg-white border-b-1 border-b-gray-300 shadow-sm py-5">
+        <div className="mx-auto flex justify-between items-center px-4">
+          {/* Main Logo */}
+          <div className="">
+            <img src="/img/main-logo.png" alt="" />
+          </div>
 
-      <div>
-        <div class="flex items-center space-x-2 text-base">
-          <h4 class="font-semibold text-slate-900">Contributors</h4>
-          <span class="bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-700 ...">
-            204
-          </span>
+          {/* Navigation Links for desktop*/}
+          <div className="">
+            <ul className="hidden lg:flex space-x-12 font-normal uppercase">
+              {navLinks.map((link) => (
+                <li key={link.label}>
+                  <a href={link.href}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* wishlist and carts */}
+          <div className="hidden lg:flex flex-row justify-between items-center space-x-4 uppercase">
+            <button>Wishlist (0)</button>
+            <button>Cart (0)</button>
+            <button onClick={() => setSearchOpen(true)}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-search-icon lucide-search"
+              >
+                <path d="m21 21-4.34-4.34" />
+                <circle cx="11" cy="11" r="8" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Carts for mobile */}
+          <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex space-x-4 lg:hidden">
+            <button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-heart-icon lucide-heart"
+              >
+                <path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" />
+              </svg>
+            </button>
+            <button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-shopping-cart-icon lucide-shopping-cart"
+              >
+                <circle cx="8" cy="21" r="1" />
+                <circle cx="19" cy="21" r="1" />
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+              </svg>
+            </button>
+            <button onClick={() => setSearchOpen(true)}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-search-icon lucide-search"
+              >
+                <path d="m21 21-4.34-4.34" />
+                <circle cx="11" cy="11" r="8" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Mobile Menu Toggle */}
+          <button className="lg:hidden" onClick={toggleMenu}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="lucide lucide-menu-icon lucide-menu"
+            >
+              <path d="M4 12h16" />
+              <path d="M4 18h16" />
+              <path d="M4 6h16" />
+            </svg>
+          </button>
         </div>
-        <div class="mt-3 flex -space-x-2 overflow-hidden">
-          <img
-            class="inline-block h-12 w-12 rounded-full ring-2 ring-white"
-            src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-            alt=""
-          />
-          <img
-            class="inline-block h-12 w-12 rounded-full ring-2 ring-white"
-            src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-            alt=""
-          />
-          <img
-            class="inline-block h-12 w-12 rounded-full ring-2 ring-white"
-            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
-            alt=""
-          />
-          <img
-            class="inline-block h-12 w-12 rounded-full ring-2 ring-white"
-            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-            alt=""
-          />
-          <img
-            class="inline-block h-12 w-12 rounded-full ring-2 ring-white"
-            src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-            alt=""
-          />
+
+        {/* SLIDING PANEL - Mobile Menu */}
+        <div
+          className={`fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out ${
+            menuOpen ? "translate-x-0" : "translate-x-full"
+          } lg:hidden`}
+        >
+          <div className="p-4 flex justify-end">
+            <button onClick={toggleMenu} className="text-gray-700 text-2xl">
+              ×
+            </button>
+          </div>
+          <ul className="flex flex-col items-start space-y-4 px-6 text-gray-800">
+            {navLinks.map((link) => (
+              <li key={link.label}>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
         </div>
-        <div class="mt-3 text-sm font-medium">
-          <a href="#" class="text-blue-500">
-            + 198 others
-          </a>
+      </nav>
+
+      {/* Search Area */}
+      {searchOpen && (
+        <div className="fixed inset-0 bg-white flex items-center justify-center">
+          <div className="relative w-full max-w-lg px-4">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="w-full p-4 rounded-md text-lg focus:outline-pink-400 border-b-gray-200 shadow-sm"
+            />
+            <button              
+              className="absolute top-4 right-6"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-search-icon lucide-search"
+              >
+                <path d="m21 21-4.34-4.34" />
+                <circle cx="11" cy="11" r="8" />
+              </svg>
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }
