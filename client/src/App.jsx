@@ -1,4 +1,6 @@
 import { useState } from "react";
+import SearchPopup from "./components/SearchPopup";
+import SlidingPanel from "./components/SlidingPanel";
 
 const navLinks = [
   { label: "Home", href: "#" },
@@ -12,8 +14,6 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
-  // Function to toggle search input visibility
-  const toggleSearch = () => setSearchOpen(!searchOpen);
   // Toggle function for mobile menu
   const toggleMenu = () => setMenuOpen(!menuOpen);
   return (
@@ -21,7 +21,7 @@ function App() {
       <nav className="relative bg-white border-b-1 border-b-gray-300 shadow-sm py-5">
         <div className="mx-auto flex justify-between items-center px-4">
           {/* Main Logo */}
-          <div className="">
+          <div className="w-20 sm:w-24">
             <img src="/img/main-logo.png" alt="" />
           </div>
 
@@ -60,7 +60,7 @@ function App() {
           </div>
 
           {/* Carts for mobile */}
-          <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex space-x-4 lg:hidden">
+          <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex space-x-2 lg:hidden">
             <button>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -136,56 +136,18 @@ function App() {
         </div>
 
         {/* SLIDING PANEL - Mobile Menu */}
-        <div
-          className={`fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out ${
-            menuOpen ? "translate-x-0" : "translate-x-full"
-          } lg:hidden`}
-        >
-          <div className="p-4 flex justify-end">
-            <button onClick={toggleMenu} className="text-gray-700 text-2xl">
-              ×
-            </button>
-          </div>
-          <ul className="flex flex-col items-start space-y-4 px-6 text-gray-800">
-            {navLinks.map((link) => (
-              <li key={link.label}>
-                <a href={link.href}>{link.label}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {menuOpen && (
+          <SlidingPanel
+            menuOpen={menuOpen}
+            toggleMenu={toggleMenu}
+            navLinks={navLinks}
+          />
+        )}
       </nav>
 
       {/* Search Area */}
       {searchOpen && (
-        <div className="fixed inset-0 bg-white flex items-center justify-center">
-          <div className="relative w-full max-w-lg px-4">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="w-full p-4 rounded-md text-lg focus:outline-pink-400 border-b-gray-200 shadow-sm"
-            />
-            <button              
-              className="absolute top-4 right-6"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-search-icon lucide-search"
-              >
-                <path d="m21 21-4.34-4.34" />
-                <circle cx="11" cy="11" r="8" />
-              </svg>
-            </button>
-          </div>
-        </div>
+        <SearchPopup searchOpen={searchOpen} setSearchOpen={setSearchOpen} />
       )}
     </>
   );
