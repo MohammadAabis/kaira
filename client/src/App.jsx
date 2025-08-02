@@ -1,21 +1,43 @@
 import { useState } from "react";
 import SearchPopup from "./components/SearchPopup";
-import SlidingPanel from "./components/SlidingPanel";
+import SlidingPanelMobile from "./components/SlidingPanelMobile";
+import DesktopNavLinks from "./components/DesktopNavLinks";
+import Carts from "./components/Carts";
 
 const navLinks = [
-  { label: "Home", href: "#" },
+  {
+    label: "Home",
+    href: "#",
+    children: [
+      { label: "Home v1", href: "#" },
+      { label: "Home v2", href: "#" },
+    ],
+  },
   { label: "Contact", href: "#" },
   { label: "About", href: "#" },
-  { label: "Blog", href: "#" },
+  {
+    label: "Blog",
+    href: "#",
+    children: [
+      { label: "Blog v1", href: "#" },
+      { label: "Blog v2", href: "#" },
+    ],
+  },
   { label: "Shop", href: "#" },
 ];
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
 
   // Toggle function for mobile menu
   const toggleMenu = () => setMenuOpen(!menuOpen);
+
+  // Toogle function for carts
+  const toggleCart = () => setCartOpen(!cartOpen);
+
+
   return (
     <>
       <nav className="relative bg-white border-b-1 border-b-gray-300 shadow-sm py-5">
@@ -26,20 +48,12 @@ function App() {
           </div>
 
           {/* Navigation Links for desktop*/}
-          <div className="">
-            <ul className="hidden lg:flex space-x-12 font-normal uppercase">
-              {navLinks.map((link) => (
-                <li key={link.label}>
-                  <a href={link.href}>{link.label}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <DesktopNavLinks navLinks={navLinks} />
 
           {/* wishlist and carts */}
-          <div className="hidden lg:flex flex-row justify-between items-center space-x-4 uppercase">
-            <button>Wishlist (0)</button>
-            <button>Cart (0)</button>
+          <div className="hidden lg:flex flex-row justify-between items-center space-x-4">
+            <button className="uppercase">Wishlist (0)</button>
+            <button className="uppercase" onClick={() => setCartOpen(true)}>Cart (0)</button>
             <button onClick={() => setSearchOpen(true)}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +151,7 @@ function App() {
 
         {/* SLIDING PANEL - Mobile Menu */}
         {menuOpen && (
-          <SlidingPanel
+          <SlidingPanelMobile
             menuOpen={menuOpen}
             toggleMenu={toggleMenu}
             navLinks={navLinks}
@@ -147,8 +161,16 @@ function App() {
 
       {/* Search Area */}
       {searchOpen && (
-        <SearchPopup searchOpen={searchOpen} setSearchOpen={setSearchOpen} />
+        <div className="fixed inset-0 z-[100] pointer-events-auto">
+          <SearchPopup searchOpen={searchOpen} setSearchOpen={setSearchOpen} />
+        </div>
       )}
+
+      {/* Cart Area */}
+      {cartOpen && (
+        <Carts cartOpen={cartOpen} toggleCart={toggleCart}/>
+      )}
+
     </>
   );
 }
