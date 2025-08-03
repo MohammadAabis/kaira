@@ -50,7 +50,7 @@ function App() {
           {/* Navigation Links for desktop*/}
           <DesktopNavLinks navLinks={navLinks} />
 
-          {/* wishlist and carts */}
+          {/* wishlist and carts for desktop*/}
           <div className="hidden lg:flex flex-row justify-between items-center space-x-4">
             <button className="uppercase">Wishlist (0)</button>
             <button className="uppercase" onClick={() => setCartOpen(true)}>Cart (0)</button>
@@ -73,7 +73,7 @@ function App() {
             </button>
           </div>
 
-          {/* Carts for mobile */}
+          {/* wishlist and carts for mobile */}
           <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex space-x-2 lg:hidden">
             <button>
               <svg
@@ -91,7 +91,7 @@ function App() {
                 <path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" />
               </svg>
             </button>
-            <button>
+            <button onClick={() => setCartOpen(true)}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -128,7 +128,7 @@ function App() {
             </button>
           </div>
 
-          {/* Mobile Menu Toggle */}
+          {/* Mobile Menu Icon */}
           <button className="lg:hidden" onClick={toggleMenu}>
             <svg
               xmlns="http://www.w3.org/2000/svg"

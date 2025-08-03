@@ -3,32 +3,32 @@ import React from "react";
 const Carts = ({ toggleCart, cartOpen }) => {
   return (
     <>
-      <div className="w-70 fixed top-0 right-0 h-full bg-gray-200">
+      <div className="w-50 md:w-90 fixed top-0 right-0 h-full bg-gray-200">
         <div className="p-4 flex justify-end">
           <button onClick={toggleCart} className="text-gray-700 text-3xl">
             ×
           </button>
         </div>
 
-        <div className="p-4 space-y-4 ">
-          <div className="flex justify-between items-center border-b border-gray-300 pb-2 mb-4 text-xl">
-            <h2 className=" font-semibold mb-4">Your Cart</h2>
-            <span className="">3</span>
+        <div className="p-2 space-y-4 ">
+          <div className="flex justify-between items-center border-b border-gray-300 pb-2 mb-4 text-2xl">
+            <h2 className="font-normal text-lime-600 mb-4">Your Cart</h2>
+            <span className="flex items-center justify-center w-10 h-10 rounded-full bg-lime-600 text-white">3</span>
           </div>
           <div className="flex justify-between items-center mb-4">
             <span>
-              <p>Growers Cider</p>
-              <p>Brief Description</p>
+              <p className="text-gray-900">Growers Cider</p>
+              <p className="text-gray-500">Brief Description</p>
             </span>
-            <span>$12</span>
+            <span className="text-lime-600">$12</span>
           </div>
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex justify-between items-center mb-4 text-lime-600">
             <span>Total (USD)</span>
-            <span>$20</span>
+            <span className="font-bold">$20</span>
           </div>
         </div>
-        <div className="mt-4">
-          <button className="bg-gray-300 text-gray-700 px-4 py-2 rounded">
+        <div className="flex items-center justify-center text-white mt-4">
+          <button className="bg-lime-600 px-4 py-2 rounded hover:bg-lime-700 transition-colors ">
             Continue to Checkout
           </button>
         </div>
