@@ -1,11 +1,26 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Header from "./layouts/Header";
 import Footer from "./layouts/Footer";
+
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
     <>
-      <Header />
-      <Footer />
+      <Router>
+        <div className="flex flex-col min-h-screen">
+          <Header />
+
+          <main className="flex-grow">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+            </Routes>
+          </main>
+
+          {/* <Footer /> */}
+        </div>
+      </Router>
     </>
   );
 }
