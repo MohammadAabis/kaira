@@ -3,7 +3,7 @@ import React from "react";
 const Carts = ({ toggleCart, cartOpen }) => {
   return (
     <>
-      <div className="w-50 md:w-90 fixed top-0 right-0 h-full bg-gray-200">
+      <div className="w-50 md:w-90 fixed top-0 right-0 h-full bg-gray-200 z-10">
         <div className="p-4 flex justify-end">
           <button onClick={toggleCart} className="text-gray-700 text-3xl">
             ×

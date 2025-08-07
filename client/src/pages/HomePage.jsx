@@ -47,11 +47,10 @@ const collections = [
 ];
 
 const HomePage = () => {
-  
   return (
     <>
-      <section className="bg-light py-5">
-        <div className="border-4 flex flex-col items-center justify-center">
+      <section className="bg-gray-100 py-5">
+        <div className="flex flex-col items-center justify-center">
           <div className="mt-15 md:max-w-1/2">
             <h1 className="text-6xl font-sans text-center">New Collections</h1>
             <p className="text-center mt-5 text-gray-400 px-5 ">
@@ -61,30 +60,7 @@ const HomePage = () => {
               voluptatibus harum, quibusdam ex repellat eaque!
             </p>
           </div>
-
-          {/* <div className="flex justify-center flex-col mt-10">
-            {collections.map((item, index) => (
-              <div
-                key={index}
-                className="flex flex-col lg:flex-row lg:space-x-10 mx-5 gap-4"
-              >
-                <div>
-                  <img src={item.path} alt="banner image" />
-                </div>
-                <div className="mt-5 px-5">
-                  <span className="uppercase text-2xl">
-                    {item.prodName}
-                  </span>
-                  <p className="text-gray-400 mt-2">
-                    {item.description}
-                  </p>
-                  <span className="border-b border-animate uppercase mt-2 inline-block">
-                    {item.discover}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div> */}
+          {/* first slidder on home screen */}
           <Slider collections={collections} />
         </div>
       </section>
