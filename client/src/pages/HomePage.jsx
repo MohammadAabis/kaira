@@ -1,5 +1,8 @@
-import { useRef } from "react";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import Slider from "../components/Slider";
+import Category from "../components/Category";
 
 const collections = [
   {
@@ -47,10 +50,20 @@ const collections = [
 ];
 
 const HomePage = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 800, // animation duration
+      once: true, // whether animation should happen only once
+    });
+  }, []);
   return (
     <>
+      {/* Starting Area */}
       <section className="bg-gray-100 py-5">
-        <div className="flex flex-col items-center justify-center">
+        <div
+          className="flex flex-col items-center justify-center mb-10"
+          data-aos="fade-up"
+        >
           <div className="mt-15 md:max-w-1/2">
             <h1 className="text-6xl font-sans text-center">New Collections</h1>
             <p className="text-center mt-5 text-gray-400 px-5 ">
@@ -60,10 +73,14 @@ const HomePage = () => {
               voluptatibus harum, quibusdam ex repellat eaque!
             </p>
           </div>
+
           {/* first slidder on home screen */}
           <Slider collections={collections} />
         </div>
       </section>
+
+      {/* Category Area */}
+      <Category />
     </>
   );
 };

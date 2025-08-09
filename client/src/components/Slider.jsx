@@ -43,15 +43,15 @@ const Slider = ({ collections }) => {
       <div className="relative mt-10 w-full max-w-7xl mx-auto overflow-hidden">
         <div className="my-slider" ref={sliderRef}>
           {collections.map((item, index) => (
-          <div key={index} className="px-5 mt-5  w-md shrink-0">
-            <img src={item.path} alt={item.prodName} className="w-md" />
-            <h3 className="uppercase text-2xl tracking-wide pt-4">
+          <div key={index} className="px-5 mt-5  w-md shrink-0 transition-transform duration-300 ease-in-out hover:scale-95 hover:shadow-md cursor-pointer">
+            <img src={item.path} alt={item.prodName} className="w-full" data-aos="fade-up"/>
+            <h3 className="uppercase text-2xl tracking-wide pt-4 border-animate">
               {item.prodName}
             </h3>
             <p className="text-gray-400 mt-2 mr-1">{item.description}</p>
             <a
               href="#"
-              className="lg:border-b lg:border-animate uppercase mt-2 inline-block"
+              className="lg:border-b lg:border-animate uppercase my-2 inline-block"
             >
               {item.discover}
             </a>
