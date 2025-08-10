@@ -3,6 +3,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import Slider from "../components/Slider";
 import Category from "../components/Category";
+import ProductsSlider from "../components/ProductsSlider";
 
 const collections = [
   {
@@ -49,6 +50,39 @@ const collections = [
   },
 ];
 
+const productList = [
+  {
+    path: "./img/product-item-1.jpg",
+    prodName: "Dark Florish OnePiece",
+    price:'$95.00',
+    cart: "Add to Cart",
+  },
+  {
+    path: "./img/product-item-2.jpg",
+    prodName: "Baggy Shirt",
+    price:'$55.00',
+    cart: "Add to Cart",
+  },
+  {
+    path: "./img/product-item-3.jpg",
+    prodName: "Cotton Off-White Shirt",
+    price:'$65.00',
+    cart: "Add to Cart",
+  },
+  {
+    path: "./img/product-item-4.jpg",
+    prodName: "Cotton Sweater",
+    price:'$50.00',
+    cart: "Add to Cart",
+  },
+  {
+    path: "./img/product-item-5.jpg",
+    prodName: "Crop Sweater",
+    price:'$45.00',
+    cart: "Add to Cart",
+  },
+]
+
 const HomePage = () => {
   useEffect(() => {
     AOS.init({
@@ -75,12 +109,15 @@ const HomePage = () => {
           </div>
 
           {/* first slidder on home screen */}
-          <Slider collections={collections} />
+          <Slider collections={collections} loop={true} lgItems={3} mdItems={2}/>
         </div>
       </section>
 
       {/* Category Area */}
       <Category />
+
+      {/* Products Slider Area */}
+      <ProductsSlider products={productList} loop={false} lgItems={4} mdItems={2} smItems={2} title={'Our New Arivals'}/>
     </>
   );
 };
