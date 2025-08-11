@@ -1,8 +1,8 @@
 const Category = () => {
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-10 py-20 w-full" data-aos="fade-up">
-        <div className="flex flex-col items-center justify-center text-center py-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-5 py-20 w-full" >
+        <div className="flex flex-col items-center text-center  my-10 w-full" data-aos="fade-up">
           <span className="text-gray-500">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +27,7 @@ const Category = () => {
             At imperdiet dui accumsan sit amet nulla risus est ultricies quis.
           </span>
         </div>
-        <div className="flex flex-col items-center justify-center text-center py-10">
+        <div className="flex flex-col items-center justify-center text-center py-10" data-aos="fade-up">
           <span className="text-gray-500">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +50,7 @@ const Category = () => {
             At imperdiet dui accumsan sit amet nulla risus est ultricies quis.
           </span>
         </div>
-        <div className="flex flex-col items-center justify-center text-center py-10">
+        <div className="flex flex-col items-center justify-center text-center py-10" data-aos="fade-up">
           <span className="text-gray-500">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -75,7 +75,7 @@ const Category = () => {
             At imperdiet dui accumsan sit amet nulla risus est ultricies quis.
           </span>
         </div>
-        <div className="flex flex-col items-center justify-center text-center py-10">
+        <div className="flex flex-col items-center justify-center text-center py-10" data-aos="fade-up">
           <span className="text-gray-500">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +103,7 @@ const Category = () => {
       </div>
 
       {/* Images Section */}
-        <div className="mt-10 px-15  flex flex-col items-center justify-center md:flex-row gap-5 w-full" data-aos="zoom-in-up">
+        <div className="mt-10 px-5  flex flex-col items-center justify-center md:flex-row gap-5 w-full" data-aos="zoom-in-up">
           <a href="#" className="hover:scale-95 transition-transform duration-500">
             <img src="./img/cat-item1.jpg" alt=""  className="w-md"/>
             <span className="uppercase text-gray-400">Shop for Men</span>

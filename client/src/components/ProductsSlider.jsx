@@ -2,9 +2,10 @@ import { useEffect, useRef } from "react";
 import { tns } from "tiny-slider/src/tiny-slider";
 import "tiny-slider/dist/tiny-slider.css";
 
-const ProductsSlider = ({ products, loop, lgItems, mdItems, smItems }) => {
+const ProductsSlider = ({ products, loop, lgItems, mdItems, smItems, title }) => {
   const sliderRef = useRef(null);
   const sliderInstance = useRef(null);
+
 
   useEffect(() => {
     if (sliderRef.current) {
@@ -15,6 +16,7 @@ const ProductsSlider = ({ products, loop, lgItems, mdItems, smItems }) => {
         autoplay: false,
         controls: false,
         nav: false,
+        // navPosition: "bottom",
         gutter: 20,
         loop: loop,
         responsive: {
@@ -27,7 +29,7 @@ const ProductsSlider = ({ products, loop, lgItems, mdItems, smItems }) => {
           1024: {
             items: lgItems || 4,
           },
-        },
+        },        
       });
     }
   }, []);
@@ -45,7 +47,7 @@ const ProductsSlider = ({ products, loop, lgItems, mdItems, smItems }) => {
       <div className="relative mt-25 w-full max-w-7xl mx-auto overflow-hidden flex flex-col">
         <div className="flex flex-col md:flex-row items-center justify-between px-5">
           <h2 className="text-3xl font-normal mb-5 uppercase tracking-wide">
-            Our New Arrivals
+            {title}
           </h2>
           <a href="#" className="text-gray-900 border-b-1 border-animate mb-5">
             View All Products
@@ -55,17 +57,43 @@ const ProductsSlider = ({ products, loop, lgItems, mdItems, smItems }) => {
           {products.map((item, index) => (
             <div
               key={index}
-              className="group px-5 mt-5 w-md shrink-0 transition-transform duration-300 ease-in-out hover:scale-95 hover:shadow-md cursor-pointer"
+              className="group px-5 mt-5 w-md shrink-0 hover:scale-95 transition-all duration-400 hover:shadow-md cursor-pointer"
               data-aos="zoom-in-up"
             >
-              <img src={item.path} alt={item.prodName} className="w-md" />
+              {/* Image wrapper to position heart icon */}
+              <div className="relative mr-5">
+                <img src={item.path} alt={item.prodName} className="w-full" />
+
+                {/* Heart icon (wishlist) */}
+                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <button
+                    href="#"
+                    className="bg-white hover:cursor-pointer p-3"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-heart-icon lucide-heart"
+                    >
+                      <path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
               <h3 className="uppercase text-2xl pt-4">{item.prodName}</h3>
 
               {/* Wrapper for smooth swap */}
               <div className="relative h-8 mt-2 overflow-hidden">
                 {/* Price (default view) */}
                 <p
-                  className="absolute  text-gray-400 transition-all duration-600 ease-in-out
+                  className="absolute  text-gray-400 transition-all duration-700 ease-in-out
                      group-hover:translate-y-[-20px] group-hover:opacity-0"
                 >
                   {item.price}
@@ -74,7 +102,7 @@ const ProductsSlider = ({ products, loop, lgItems, mdItems, smItems }) => {
                 {/* Cart (hover view) */}
                 <a
                   href="#"
-                  className="absolute  uppercase transition-all duration-600 ease-in-out 
+                  className="absolute  uppercase transition-all duration-700 ease-in-out 
                      translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100"
                 >
                   {item.cart}
@@ -82,7 +110,7 @@ const ProductsSlider = ({ products, loop, lgItems, mdItems, smItems }) => {
               </div>
             </div>
           ))}
-        </div>
+        </div>       
 
         {/* Custom Navigation Buttons */}
         <button

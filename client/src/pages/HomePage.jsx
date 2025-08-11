@@ -1,9 +1,12 @@
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import "../styles/custom.css";
 import Slider from "../components/Slider";
 import Category from "../components/Category";
 import ProductsSlider from "../components/ProductsSlider";
+import WintersCollection from "../components/WintersCollection";
+import BlogPost from "../components/BlogsPost";
 
 const collections = [
   {
@@ -54,34 +57,64 @@ const productList = [
   {
     path: "./img/product-item-1.jpg",
     prodName: "Dark Florish OnePiece",
-    price:'$95.00',
+    price: "$95.00",
     cart: "Add to Cart",
   },
   {
     path: "./img/product-item-2.jpg",
     prodName: "Baggy Shirt",
-    price:'$55.00',
+    price: "$55.00",
     cart: "Add to Cart",
   },
   {
     path: "./img/product-item-3.jpg",
     prodName: "Cotton Off-White Shirt",
-    price:'$65.00',
+    price: "$65.00",
     cart: "Add to Cart",
   },
   {
     path: "./img/product-item-4.jpg",
     prodName: "Cotton Sweater",
-    price:'$50.00',
+    price: "$50.00",
     cart: "Add to Cart",
   },
   {
     path: "./img/product-item-5.jpg",
     prodName: "Crop Sweater",
-    price:'$45.00',
+    price: "$45.00",
     cart: "Add to Cart",
   },
-]
+  {
+    path: "./img/product-item-6.jpg",
+    prodName: "Baggy Shirt",
+    price: "$45.00",
+    cart: "Add to Cart",
+  },
+  {
+    path: "./img/product-item-7.jpg",
+    prodName: "Blue Jeans",
+    price: "$45.00",
+    cart: "Add to Cart",
+  },
+  {
+    path: "./img/product-item-8.jpg",
+    prodName: "Black Jeans",
+    price: "$45.00",
+    cart: "Add to Cart",
+  },
+  {
+    path: "./img/product-item-9.jpg",
+    prodName: "Cotton Shirt",
+    price: "$45.00",
+    cart: "Add to Cart",
+  },
+  {
+    path: "./img/product-item-10.jpg",
+    prodName: "Whoolen Sweater",
+    price: "$45.00",
+    cart: "Add to Cart",
+  },
+];
 
 const HomePage = () => {
   useEffect(() => {
@@ -109,15 +142,63 @@ const HomePage = () => {
           </div>
 
           {/* first slidder on home screen */}
-          <Slider collections={collections} loop={true} lgItems={3} mdItems={2}/>
+          <Slider
+            collections={collections}
+            loop={true}
+            lgItems={3}
+            mdItems={2}
+          />
         </div>
       </section>
-
       {/* Category Area */}
       <Category />
-
       {/* Products Slider Area */}
-      <ProductsSlider products={productList} loop={false} lgItems={4} mdItems={2} smItems={2} title={'Our New Arivals'}/>
+      <ProductsSlider
+        products={productList}
+        loop={false}
+        lgItems={4}
+        mdItems={2}
+        smItems={2}
+        title={"Our New Arivals"}
+      />
+      {/* Winter Collection Area */}
+      <div className="bg-gray-200 py-20">
+        <WintersCollection />
+      </div>
+      {/* Best selling items */}
+      <ProductsSlider
+        products={productList}
+        loop={false}
+        lgItems={4}
+        mdItems={2}
+        smItems={2}
+        title={"Best Selling Items"}
+      />
+      {/* Video image */}
+      <div className="relative w-full mt-15">
+        <div className="mx-3 relative">
+          <img src="./img/video-image.jpg" alt="" className="w-full" />
+          <img
+            src="./img/text-pattern.png"
+            alt=""
+            className="absolute top-1/2 left-1/2 w-64 
+                 -translate-x-1/2 -translate-y-1/2 
+                 slow-spin"
+          />
+        </div>
+      </div>
+      .{/* Your Like items */}
+      <ProductsSlider
+        products={productList}
+        loop={false}
+        lgItems={4}
+        mdItems={2}
+        smItems={2}
+        title={"You May Also Like"}
+      />
+      
+      {/* Blogs Post */}
+      <BlogPost />
     </>
   );
 };
