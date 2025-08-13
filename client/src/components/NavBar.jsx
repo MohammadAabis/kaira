@@ -51,7 +51,7 @@ const NavBar = ({items}) => {
           {/* wishlist and carts for desktop*/}
           <div className="hidden lg:flex flex-row justify-between items-center space-x-4">
             <button className="uppercase">Wishlist (0)</button>
-            <button className="uppercase" onClick={() => setCartOpen(true)}>Cart (0)</button>
+            <button className="uppercase" onClick={() => setCartOpen(true)}>Cart {items.length}</button>
             <button onClick={() => setSearchOpen(true)}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

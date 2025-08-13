@@ -24,15 +24,19 @@ const Carts = ({ toggleCart, cartOpen, items }) => {
               {items.length}
             </span>
           </div>
-          {items.map((item, index) => (
-            <div className="flex justify-between items-center mb-4">
-              <span>
-                <p className="text-gray-900">{item.name}</p>
-                <p className="text-gray-500">Brief Description</p>
-              </span>
-              <span className="text-lime-600">{item.price}</span>
-            </div>
-          ))}
+          {items.length === 0 ? (
+            <p>No Items Added</p>
+          ) : (
+            items.map((item, index) => (
+              <div className="flex justify-between items-center mb-4">
+                <span>
+                  <p className="text-gray-900">{item.name}</p>
+                  <p className="text-gray-500">Brief Description</p>
+                </span>
+                <span className="text-lime-600">{item.price}</span>
+              </div>
+            ))
+          )}
           <div className="flex justify-between items-center mb-4 text-lime-600">
             <span>Total (USD)</span>
             <span className="font-bold">${totalPrice.toFixed(2)}</span>
