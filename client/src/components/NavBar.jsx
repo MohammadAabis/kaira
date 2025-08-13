@@ -26,7 +26,7 @@ const navLinks = [
   { label: "Shop", href: "#" },
 ];
 
-const NavBar = () => {
+const NavBar = ({items}) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
@@ -166,7 +166,7 @@ const NavBar = () => {
 
       {/* Cart Area */}
       {cartOpen && (
-        <Carts cartOpen={cartOpen} toggleCart={toggleCart}/>
+        <Carts cartOpen={cartOpen} toggleCart={toggleCart} items={items}/>
       )}
 
     </>

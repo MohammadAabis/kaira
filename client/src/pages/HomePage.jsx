@@ -7,6 +7,7 @@ import Category from "../components/Category";
 import ProductsSlider from "../components/ProductsSlider";
 import WintersCollection from "../components/WintersCollection";
 import BlogPost from "../components/BlogsPost";
+import NewsLetter from "../components/NewsLetter";
 
 const collections = [
   {
@@ -116,7 +117,7 @@ const productList = [
   },
 ];
 
-const HomePage = () => {
+const HomePage = ({addToCart}) => {
   useEffect(() => {
     AOS.init({
       duration: 800, // animation duration
@@ -160,6 +161,7 @@ const HomePage = () => {
         mdItems={2}
         smItems={2}
         title={"Our New Arivals"}
+        addToCart={addToCart}
       />
       {/* Winter Collection Area */}
       <div className="bg-gray-200 py-20">
@@ -173,6 +175,7 @@ const HomePage = () => {
         mdItems={2}
         smItems={2}
         title={"Best Selling Items"}
+        addToCart={addToCart}
       />
       {/* Video image */}
       <div className="relative w-full mt-15">
@@ -195,10 +198,14 @@ const HomePage = () => {
         mdItems={2}
         smItems={2}
         title={"You May Also Like"}
+        addToCart={addToCart}
       />
-      
+
       {/* Blogs Post */}
       <BlogPost />
+
+      {/* News Letter */}
+      <NewsLetter />
     </>
   );
 };

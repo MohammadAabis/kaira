@@ -1,11 +1,21 @@
 import { useEffect, useRef } from "react";
 import { tns } from "tiny-slider/src/tiny-slider";
 import "tiny-slider/dist/tiny-slider.css";
+import { useNavigate } from "react-router-dom";
 
-const ProductsSlider = ({ products, loop, lgItems, mdItems, smItems, title }) => {
+const ProductsSlider = ({
+  products,
+  loop,
+  lgItems,
+  mdItems,
+  smItems,
+  title,
+  addToCart
+}) => {
+
   const sliderRef = useRef(null);
   const sliderInstance = useRef(null);
-
+  const navigate = new useNavigate();
 
   useEffect(() => {
     if (sliderRef.current) {
@@ -29,7 +39,7 @@ const ProductsSlider = ({ products, loop, lgItems, mdItems, smItems, title }) =>
           1024: {
             items: lgItems || 4,
           },
-        },        
+        },
       });
     }
   }, []);
@@ -41,6 +51,7 @@ const ProductsSlider = ({ products, loop, lgItems, mdItems, smItems, title }) =>
   const handleNext = () => {
     sliderInstance.current?.goTo("next");
   };
+
 
   return (
     <>
@@ -67,7 +78,7 @@ const ProductsSlider = ({ products, loop, lgItems, mdItems, smItems, title }) =>
                 {/* Heart icon (wishlist) */}
                 <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <button
-                    href="#"
+                    onClick={() => addToCart(item.prodName, item.price)}
                     className="bg-white hover:cursor-pointer p-3"
                   >
                     <svg
@@ -110,7 +121,7 @@ const ProductsSlider = ({ products, loop, lgItems, mdItems, smItems, title }) =>
               </div>
             </div>
           ))}
-        </div>       
+        </div>
 
         {/* Custom Navigation Buttons */}
         <button
