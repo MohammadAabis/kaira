@@ -8,22 +8,22 @@ import Footer from "./layouts/Footer";
 import HomePage from "./pages/HomePage";
 
 function App() {
-   const [cartItems, setCartItems] = useState([]);
-  
-    const addToCart = (name, price) => {
-      setCartItems((prev) => [...prev, { name, price }]);
-    };
+  const [cartItems, setCartItems] = useState([]);
 
+  const addToCart = (name, price) => {
+    setCartItems((prev) => [...prev, { name, price }]);
+  };
 
   return (
     <>
       <Router>
         <div className="flex flex-col min-h-screen">
-          <Header items={cartItems}/>
+          <Header items={cartItems} />
 
+          {/* main content */}
           <main className="flex-grow">
             <Routes>
-              <Route path="/" element={<HomePage addToCart={addToCart}/>} />
+              <Route path="/" element={<HomePage addToCart={addToCart} />} />
             </Routes>
           </main>
 
