@@ -60,10 +60,10 @@ const NavBar = ({items}) => {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
+                strokeWidth="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                class="lucide lucide-search-icon lucide-search"
+                className="lucide lucide-search-icon lucide-search"
               >
                 <path d="m21 21-4.34-4.34" />
                 <circle cx="11" cy="11" r="8" />
@@ -84,7 +84,7 @@ const NavBar = ({items}) => {
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                class="lucide lucide-heart-icon lucide-heart"
+                className="lucide lucide-heart-icon lucide-heart"
               >
                 <path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" />
               </svg>
@@ -100,7 +100,7 @@ const NavBar = ({items}) => {
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                class="lucide lucide-shopping-cart-icon lucide-shopping-cart"
+                className="lucide lucide-shopping-cart-icon lucide-shopping-cart"
               >
                 <circle cx="8" cy="21" r="1" />
                 <circle cx="19" cy="21" r="1" />
@@ -118,7 +118,7 @@ const NavBar = ({items}) => {
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                class="lucide lucide-search-icon lucide-search"
+                className="lucide lucide-search-icon lucide-search"
               >
                 <path d="m21 21-4.34-4.34" />
                 <circle cx="11" cy="11" r="8" />

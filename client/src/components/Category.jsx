@@ -14,7 +14,7 @@ const Category = () => {
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="lucide lucide-calendar-icon lucide-calendar h-10 w-10"
+              className="lucide lucide-calendar-icon lucide-calendar h-10 w-10"
             >
               <path d="M8 2v4" />
               <path d="M16 2v4" />
@@ -39,7 +39,7 @@ const Category = () => {
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="lucide lucide-handbag-icon lucide-handbag h-10 w-10"
+              className="lucide lucide-handbag-icon lucide-handbag h-10 w-10"
             >
               <path d="M2.048 18.566A2 2 0 0 0 4 21h16a2 2 0 0 0 1.952-2.434l-2-9A2 2 0 0 0 18 8H6a2 2 0 0 0-1.952 1.566z" />
               <path d="M8 11V6a4 4 0 0 1 8 0v5" />
@@ -62,7 +62,7 @@ const Category = () => {
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="lucide lucide-gift-icon lucide-gift h-10 w-10"
+              className="lucide lucide-gift-icon lucide-gift h-10 w-10"
             >
               <rect x="3" y="8" width="18" height="4" rx="1" />
               <path d="M12 8v13" />
@@ -87,7 +87,7 @@ const Category = () => {
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="lucide lucide-refresh-ccw-icon lucide-refresh-ccw h-10 w-10"
+              className="lucide lucide-refresh-ccw-icon lucide-refresh-ccw h-10 w-10"
             >
               <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
               <path d="M3 3v5h5" />

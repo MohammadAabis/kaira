@@ -1,13 +1,18 @@
-import React from "react";
+import {useNavigate} from "react-router-dom";
 
 const Carts = ({ toggleCart, cartOpen, items }) => {
-  let sum = 0;
+  const navigate = useNavigate();
 
   const totalPrice = items.reduce((sum, item) => {
     // Remove $ sign if present and convert to number
     const price = parseFloat(item.price.replace(/[^0-9.]/g, ""));
     return sum + price;
   }, 0);
+
+  const checkOut = () => {
+    navigate('/checkout')
+
+  }
   return (
     <>
       <div className="w-50 md:w-90 fixed top-0 right-0 h-full bg-gray-200 z-10">
@@ -44,7 +49,7 @@ const Carts = ({ toggleCart, cartOpen, items }) => {
         </div>
         <div className="flex items-center justify-center text-white mt-4">
           <button className={`${
-            items.length == 0 ? "disabled bg-gray-300 px-4 py-2 rounded cursor-not-allowed" : "bg-lime-600 px-4 py-2 rounded hover:bg-lime-700 hover:cursor-pointer transition-colors"} `}>
+            items.length == 0 ? "disabled bg-gray-300 px-4 py-2 rounded cursor-not-allowed" : "bg-lime-600 px-4 py-2 rounded hover:bg-lime-700 hover:cursor-pointer transition-colors"} `} onClick={checkOut}>
             Continue to Checkout
           </button>
         </div>
