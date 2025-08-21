@@ -43,7 +43,8 @@ const Carts = ({ toggleCart, cartOpen, items }) => {
           </div>
         </div>
         <div className="flex items-center justify-center text-white mt-4">
-          <button className="bg-lime-600 px-4 py-2 rounded hover:bg-lime-700 transition-colors ">
+          <button className={`${
+            items.length == 0 ? "disabled bg-gray-300 px-4 py-2 rounded cursor-not-allowed" : "bg-lime-600 px-4 py-2 rounded hover:bg-lime-700 hover:cursor-pointer transition-colors"} `}>
             Continue to Checkout
           </button>
         </div>
