@@ -10,7 +10,7 @@ const Carts = ({ toggleCart, cartOpen, items }) => {
   }, 0);
 
   const checkOut = () => {
-    navigate('/checkout')
+    navigate('/checkout', { state: { cartItems: items } })
 
   }
   return (
