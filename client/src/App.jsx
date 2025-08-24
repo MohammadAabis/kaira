@@ -7,6 +7,7 @@ import Footer from "./layouts/Footer";
 
 import HomePage from "./pages/HomePage";
 import Checkout from "./pages/Checkout";
+import PaymentStatus from "./pages/PaymentStatus";
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -26,6 +27,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage addToCart={addToCart} />} />
               <Route path="/checkout" element={<Checkout />} />
+              <Route path="/payment-status" element={<PaymentStatus />} />
             </Routes>
           </main>
 
