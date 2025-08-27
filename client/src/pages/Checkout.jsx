@@ -1,5 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "../components/CheckoutForm";
+
+// const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 const province = [
   { name: "Punjab", code: "PB" },
@@ -10,13 +15,40 @@ const province = [
 ];
 
 const Checkout = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedProvince, setSelectedProvince] = useState("");
+  const navigate = useNavigate();
 
   const location = useLocation();
   const cartItems = location.state?.cartItems || [];
 
-   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [clientSecret, setClientSecret] = useState(null);
+  const [formData, setFormData] = useState({
+    email: "",
+    firstName: "",
+    lastName: "",
+    phone: "",
+    address: "",
+    city: "",
+    province: "",
+    zipCode: "",
+  });
+
+  // Track if form is valid
+  const isFormValid = Object.values(formData).every((val) => val.trim() !== "");
+
+  useEffect(() => {
+    if (!cartItems.length) return;
+    // call your backend to create a PaymentIntent
+    fetch("http://localhost:4242/create-payment-intent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items: cartItems, currency: "usd" }),
+    })
+      .then((res) => res.json())
+      .then((data) => setClientSecret(data.clientSecret))
+      .catch(console.error);
+  }, [cartItems]);
 
   const handleSelect = (prov) => {
     setSelectedProvince(prov.name);
@@ -29,9 +61,37 @@ const Checkout = () => {
     return sum + price;
   }, 0);
 
-  const makePayment = () => {
-    navigate('/payment', { state: { cartItems: items } })
-  }
+  const makePayment = async () => {
+    if (!formData) {
+      alert("Please fill all required fields");
+    }
+    // navigate("/payment-status", { state: { cartItems: cartItems } });
+
+    const stripe = await loadStripe(
+      "pk_test_51RzZ31RlE9sjQmLwX8jxc224x8L05x4znedfbGYfzvozC1Hye04ofhd3j1yB08teTJ8c0YiGKa4WLGFxrBGpDx4s00BZL5VCxJ"
+    );
+
+    const response = await fetch("http://localhost:4242/create-checkout-session",{
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({items: cartItems})
+    })
+
+    const session = await response.json();
+
+    const result = await stripe.redirectToCheckout({
+      sessionId:session.id
+    })
+
+    if(res.error){
+      console.log(res.error)
+    }
+  };
+
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   return (
     <>
@@ -40,7 +100,12 @@ const Checkout = () => {
           <label htmlFor="email" className="uppercase text-lg">
             Email
           </label>
-          <input type="email" name="email" className="border-1 p-1" />
+          <input
+            type="email"
+            name="email"
+            className="border-1 p-1"
+            onChange={handleChange}
+          />
           <br />
 
           <h2 className="uppercase text-lg">Delivery</h2>
@@ -50,13 +115,16 @@ const Checkout = () => {
               type="text"
               name="firstName"
               placeholder="First Name*"
+              onChange={handleChange}
               required
               className="border-1 p-2 w-full"
             />
             <input
               type="text"
               name="lastName"
-              placeholder="Last Name"
+              placeholder="Last Name*"
+              onChange={handleChange}
+              required
               className="border-1 p-1 w-full"
             />
           </div>
@@ -64,6 +132,7 @@ const Checkout = () => {
             type="text"
             name="phone"
             placeholder="Phone*"
+            onChange={handleChange}
             required
             className="border-1 p-1"
           />
@@ -71,6 +140,7 @@ const Checkout = () => {
             type="text"
             name="address"
             placeholder="Address*"
+            onChange={handleChange}
             required
             className="border-1 p-1"
           />
@@ -79,6 +149,7 @@ const Checkout = () => {
               type="text"
               name="city"
               placeholder="City*"
+              onChange={handleChange}
               required
               className="border-1 p-1"
             />
@@ -88,6 +159,7 @@ const Checkout = () => {
                 name="province"
                 value={selectedProvince}
                 placeholder="Province*"
+                onChange={handleChange}
                 readOnly
                 required
                 className="border-1 p-1 w-full cursor-pointer"
@@ -128,14 +200,18 @@ const Checkout = () => {
               type="number"
               name="zipCode"
               placeholder="ZIP Code*"
+              onChange={handleChange}
               required
               className="border-1 p-1"
             />
           </div>
           <br />
           <div>
-            <h4 className="uppercase text-lg">Payment Methond</h4>
-            <div className="flex items-center justify-between border-2 mt-5 hover:cursor-pointer" onClick={makePayment}>
+            <h4 className="uppercase text-lg mb-5">Payment Methond</h4>
+            <div
+              className="flex items-center justify-between border-2 mt-5 hover:cursor-pointer"
+              onClick={makePayment}
+            >
               <div className="p-3">
                 <p>Credit Card</p>
                 <p className="text-sm text-gray-400">Secure and Encrypted</p>
@@ -146,6 +222,26 @@ const Checkout = () => {
                 <img src="./img/paypal-card.png" alt="" />
               </div>
             </div>
+
+            {/* Stripe Payment */}
+            {/* <div>
+              {clientSecret ? (
+                <Elements
+                  stripe={stripePromise}
+                  options={{
+                    clientSecret,
+                    appearance: { theme: "stripe" },
+                  }}
+                >
+                  <CheckoutForm
+                    cartItems={cartItems}
+                    isFormValid={isFormValid}
+                  />
+                </Elements>
+              ) : (
+                <p>Preparing secure payment…</p>
+              )}
+            </div> */}
           </div>
         </div>
         <div className="w-full max-w-[400px] bg-gray-200 space-y-2 p-5 mt-5 sm:mx-5 ">
