@@ -1,10 +1,6 @@
-import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-import CheckoutForm from "../components/CheckoutForm";
-
-// const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 const province = [
   { name: "Punjab", code: "PB" },
@@ -14,9 +10,9 @@ const province = [
   { name: "Gilgit Baltistan ", code: "GB" },
 ];
 
-const Checkout = () => {
-  const navigate = useNavigate();
+const stripeKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
 
+const Checkout = () => {
   const location = useLocation();
   const cartItems = location.state?.cartItems || [];
 
@@ -34,22 +30,6 @@ const Checkout = () => {
     zipCode: "",
   });
 
-  // Track if form is valid
-  const isFormValid = Object.values(formData).every((val) => val.trim() !== "");
-
-  useEffect(() => {
-    if (!cartItems.length) return;
-    // call your backend to create a PaymentIntent
-    fetch("http://localhost:4242/create-payment-intent", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items: cartItems, currency: "usd" }),
-    })
-      .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret))
-      .catch(console.error);
-  }, [cartItems]);
-
   const handleSelect = (prov) => {
     setSelectedProvince(prov.name);
     setIsOpen(false);
@@ -62,32 +42,28 @@ const Checkout = () => {
   }, 0);
 
   const makePayment = async () => {
-    if (!formData) {
-      alert("Please fill all required fields");
-    }
-    // navigate("/payment-status", { state: { cartItems: cartItems } });
+    const stripe = await loadStripe(stripeKey);
 
-    const stripe = await loadStripe(
-      "pk_test_51RzZ31RlE9sjQmLwX8jxc224x8L05x4znedfbGYfzvozC1Hye04ofhd3j1yB08teTJ8c0YiGKa4WLGFxrBGpDx4s00BZL5VCxJ"
+    const response = await fetch(
+      "http://localhost:4242/create-checkout-session",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items: cartItems }),
+      }
     );
 
-    const response = await fetch("http://localhost:4242/create-checkout-session",{
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({items: cartItems})
-    })
-
     const session = await response.json();
+    console.log(session, "session");
 
     const result = await stripe.redirectToCheckout({
-      sessionId:session.id
-    })
+      sessionId: session.id,
+    });
 
-    if(res.error){
-      console.log(res.error)
+    if (res.error) {
+      console.log(res.error);
     }
   };
-
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -222,32 +198,12 @@ const Checkout = () => {
                 <img src="./img/paypal-card.png" alt="" />
               </div>
             </div>
-
-            {/* Stripe Payment */}
-            {/* <div>
-              {clientSecret ? (
-                <Elements
-                  stripe={stripePromise}
-                  options={{
-                    clientSecret,
-                    appearance: { theme: "stripe" },
-                  }}
-                >
-                  <CheckoutForm
-                    cartItems={cartItems}
-                    isFormValid={isFormValid}
-                  />
-                </Elements>
-              ) : (
-                <p>Preparing secure payment…</p>
-              )}
-            </div> */}
           </div>
         </div>
         <div className="w-full max-w-[400px] bg-gray-200 space-y-2 p-5 mt-5 sm:mx-5 ">
           <h3 className="uppercase font-normal text-xl">Cart Summary</h3>
           {cartItems.map((item, index) => (
-            <div className="flex justify-between items-center my-4 ">
+            <div className="flex justify-between items-center my-4 " key={index}>
               <span>
                 <p className="text-gray-900">{item.name}</p>
                 <p className="text-gray-500">Brief Description</p>

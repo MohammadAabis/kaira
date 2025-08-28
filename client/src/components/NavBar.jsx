@@ -3,6 +3,7 @@ import SearchPopup from "./SearchPopup";
 import SlidingPanelMobile from "./SlidingPanelMobile";
 import DesktopNavLinks from "./DesktopNavLinks";
 import Carts from "./Carts";
+import { Link } from "react-router-dom";
 
 const navLinks = [
   {
@@ -26,7 +27,7 @@ const navLinks = [
   { label: "Shop", href: "#" },
 ];
 
-const NavBar = ({items}) => {
+const NavBar = ({ items }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
@@ -42,7 +43,13 @@ const NavBar = ({items}) => {
         <div className="mx-auto flex justify-between items-center px-4">
           {/* Main Logo */}
           <div className="w-20 sm:w-24">
-            <img src="/img/main-logo.png" alt="" />
+            <Link to="/">
+              <img
+                src="/img/main-logo.png"
+                alt=""
+                className="hover:cursor-pointer"
+              />
+            </Link>
           </div>
 
           {/* Navigation Links for desktop*/}
@@ -51,7 +58,9 @@ const NavBar = ({items}) => {
           {/* wishlist and carts for desktop*/}
           <div className="hidden lg:flex flex-row justify-between items-center space-x-4">
             <button className="uppercase">Wishlist (0)</button>
-            <button className="uppercase" onClick={() => setCartOpen(true)}>Cart {items.length}</button>
+            <button className="uppercase" onClick={() => setCartOpen(true)}>
+              Cart {items.length}
+            </button>
             <button onClick={() => setSearchOpen(true)}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -166,9 +175,8 @@ const NavBar = ({items}) => {
 
       {/* Cart Area */}
       {cartOpen && (
-        <Carts cartOpen={cartOpen} toggleCart={toggleCart} items={items}/>
+        <Carts cartOpen={cartOpen} toggleCart={toggleCart} items={items} />
       )}
-
     </>
   );
 };

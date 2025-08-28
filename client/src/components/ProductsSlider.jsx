@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { tns } from "tiny-slider/src/tiny-slider";
 import "tiny-slider/dist/tiny-slider.css";
 
@@ -14,6 +14,9 @@ const ProductsSlider = ({
 
   const sliderRef = useRef(null);
   const sliderInstance = useRef(null);
+
+  // Local state to track cart items (by product name or ID)
+  const [cartItems, setCartItems] = useState(new Set());
 
   useEffect(() => {
     if (sliderRef.current) {
@@ -50,6 +53,20 @@ const ProductsSlider = ({
     sliderInstance.current?.goTo("next");
   };
 
+  // Toggle cart state locally and call external addToCart
+  const toggleCart = (productName, price) => {
+    setCartItems((prev) => {
+      const updated = new Set(prev);
+      if (updated.has(productName)) {
+        updated.delete(productName); // remove
+      } else {
+        updated.add(productName); // add
+        addToCart(productName, price); // Call the callback here
+      }
+      return updated;
+    });
+  };
+
 
   return (
     <>
@@ -76,7 +93,7 @@ const ProductsSlider = ({
                 {/* Heart icon (wishlist) */}
                 <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <button
-                    onClick={() => addToCart(item.prodName, item.price)}
+                    onClick={() => toggleCart(item.prodName, item.price)}
                     className="bg-white hover:cursor-pointer p-3"
                   >
                     <svg
@@ -84,7 +101,7 @@ const ProductsSlider = ({
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
-                      fill="none"
+                      fill={cartItems ? "red" : "none"}
                       stroke="currentColor"
                       stroke-width="2"
                       stroke-linecap="round"

@@ -12,6 +12,7 @@ const Carts = ({ toggleCart, cartOpen, items }) => {
   const checkOut = () => {
     navigate('/checkout', { state: { cartItems: items } })
 
+
   }
   return (
     <>
@@ -33,7 +34,7 @@ const Carts = ({ toggleCart, cartOpen, items }) => {
             <p>No Items Added</p>
           ) : (
             items.map((item, index) => (
-              <div className="flex justify-between items-center mb-4">
+              <div key={index} className="flex justify-between items-center mb-4">
                 <span>
                   <p className="text-gray-900">{item.name}</p>
                   <p className="text-gray-500">Brief Description</p>
