@@ -57,8 +57,13 @@ const NavBar = ({ items }) => {
 
           {/* wishlist and carts for desktop*/}
           <div className="hidden lg:flex flex-row justify-between items-center space-x-4">
-            <button className="uppercase">Wishlist (0)</button>
-            <button className="uppercase" onClick={() => setCartOpen(true)}>
+            <button className="uppercase hover:cursor-pointer">
+              Wishlist (0)
+            </button>
+            <button
+              className="uppercase hover:cursor-pointer"
+              onClick={() => setCartOpen(true)}
+            >
               Cart {items.length}
             </button>
             <button onClick={() => setSearchOpen(true)}>
@@ -72,7 +77,7 @@ const NavBar = ({ items }) => {
                 strokeWidth="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                className="lucide lucide-search-icon lucide-search"
+                className="lucide lucide-search-icon lucide-search hover:cursor-pointer"
               >
                 <path d="m21 21-4.34-4.34" />
                 <circle cx="11" cy="11" r="8" />

@@ -9,14 +9,14 @@ const ProductsSlider = ({
   mdItems,
   smItems,
   title,
-  addToCart
+  addToCart,
 }) => {
-
   const sliderRef = useRef(null);
   const sliderInstance = useRef(null);
 
-  // Local state to track cart items (by product name or ID)
-  const [cartItems, setCartItems] = useState(new Set());
+  // Liked items
+  const [likedItems, setLikedItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     if (sliderRef.current) {
@@ -54,19 +54,24 @@ const ProductsSlider = ({
   };
 
   // Toggle cart state locally and call external addToCart
-  const toggleCart = (productName, price) => {
-    setCartItems((prev) => {
-      const updated = new Set(prev);
-      if (updated.has(productName)) {
-        updated.delete(productName); // remove
-      } else {
-        updated.add(productName); // add
-        addToCart(productName, price); // Call the callback here
-      }
-      return updated;
-    });
-  };
+  const toggleCart = (product) => {
+    if (likedItems.includes(product.prodName)) {
+      // remove from wishlist
+      setLikedItems((prev) => prev.filter((p) => p !== product.prodName));
 
+      // also remove from cart
+      setCartItems((prev) =>
+        prev.filter((p) => p.prodName !== product.prodName)
+      );
+    } else {
+      // add to wishlist
+      setLikedItems((prev) => [...prev, product.prodName]);
+
+      // also add to cart
+      setCartItems((prev) => [...prev, product]);
+    }
+    addToCart(product.prodName, product.price);
+  };
 
   return (
     <>
@@ -93,7 +98,7 @@ const ProductsSlider = ({
                 {/* Heart icon (wishlist) */}
                 <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <button
-                    onClick={() => toggleCart(item.prodName, item.price)}
+                    onClick={() => toggleCart(item)}
                     className="bg-white hover:cursor-pointer p-3"
                   >
                     <svg
@@ -101,7 +106,7 @@ const ProductsSlider = ({
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
-                      fill={cartItems ? "red" : "none"}
+                      fill={likedItems.includes(item.prodName) ? "red" : "none"}
                       stroke="currentColor"
                       stroke-width="2"
                       stroke-linecap="round"
